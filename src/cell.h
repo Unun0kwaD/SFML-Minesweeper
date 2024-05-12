@@ -11,6 +11,8 @@ private:
     sf::IntRect getRectFromCellType(int celltype);
 public:
     bool mine=false;
+    bool flagged=false;
+    bool discovered=false;
     Cell(sf::Texture& texture,sf::Vector2f position,int type);
     void Draw(sf::RenderWindow& window);
     void ChangeTextureRect(int img);

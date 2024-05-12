@@ -13,7 +13,7 @@ private:
 public:
     Minefield(sf::Vector2f position=sf::Vector2f(0.0f,0.0f));
     void Draw(sf::RenderWindow& window);
-    int discover(sf::Vector2f position);
-    int flag(sf::Vector2f position);
+    int discover(int x, int y);
+    int flag(int x, int y);
 };
 #endif

@@ -1,5 +1,5 @@
 #include "minefield.h"
-
+#include <iostream>
 Minefield::Minefield(sf::Vector2f position)
 {
     if (!texture.loadFromFile("../../images/minesweeper.png"))
@@ -19,11 +19,13 @@ Minefield::Minefield(sf::Vector2f position)
     {
         int x = rand() % CELLS_X;
         int y = rand() % CELLS_Y;
-        if (!cells[y * CELLS_X + x].mine)
+        if (!cells[x * CELLS_Y + y].mine)
         {
-            cells[y * CELLS_X + x].mine = true;
-            cells[y * CELLS_X + x].ChangeTextureRect(MINE);
-            cells[y * CELLS_X + x].adjacent_mines = 0;
+            cells[x * CELLS_Y + y].mine = true;
+
+            // display all mines
+            // cells[x * CELLS_Y + y].ChangeTextureRect(MINE);
+            cells[x * CELLS_Y + y].adjacent_mines = 0;
             count++;
 
             for (int dy = -1; dy <= 1; dy++)
@@ -32,9 +34,12 @@ Minefield::Minefield(sf::Vector2f position)
                 {
                     int nx = x + dx;
                     int ny = y + dy;
-                    if (nx >= 0 && nx < CELLS_X && ny >= 0 && ny < CELLS_Y && cells[y * CELLS_X + x].mine != true)
+                    if (nx >= 0 && nx < CELLS_X && ny >= 0 && ny < CELLS_Y && cells[nx * CELLS_Y + ny].mine != true)
                     {
-                        cells[ny * CELLS_X + nx].adjacent_mines++;
+                        cells[nx * CELLS_Y + ny].adjacent_mines++;
+
+                        // display all numbers
+                        //  cells[nx * CELLS_Y + ny].ChangeTextureRect(++cells[nx * CELLS_Y + ny].adjacent_mines-1);
                     }
                 }
             }
@@ -48,4 +53,43 @@ void Minefield::Draw(sf::RenderWindow &window)
     {
         cell.Draw(window);
     }
+}
+
+int Minefield::discover(int x, int y)
+{
+    if (!cells[x * CELLS_Y + y].discovered)
+    {
+        int result = cells[x * CELLS_Y + y].discover();
+        if (result == 0)
+        {
+            for (int dy = -1; dy <= 1; dy++)
+            {
+                for (int dx = -1; dx <= 1; dx++)
+                {
+                    int nx = x + dx;
+                    int ny = y + dy;
+                    if ((dx != 0 || dy != 0) && nx >= 0 && nx < CELLS_X && ny >= 0 && ny < CELLS_Y)
+                    {
+                        std::cout << nx << " " << ny << std::endl;
+                        this->discover(nx, ny);
+                        // cells[nx * CELLS_Y + ny].discover();
+                    }
+                }
+            }
+        }
+        return result;
+    }
+    return -2;
+}
+
+int Minefield::flag(int x, int y)
+{
+    if (!cells[x * CELLS_Y + y].flagged){
+    int result = cells[x * CELLS_Y + y].flag();
+    if (result == -1)
+        ;
+    // gameover();
+    return result;
+    }
+    return -2;
 }
