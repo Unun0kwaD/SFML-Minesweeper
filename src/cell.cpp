@@ -21,6 +21,7 @@ void Cell::Draw(sf::RenderWindow &window)
 }
 void Cell::ChangeTextureRect(int img)
 {
+    type=img;
     sprite.setTextureRect(getRectFromCellType(img));
 }
 int Cell::discover()
@@ -53,9 +54,24 @@ int Cell::flag()
         return 0;
     }
     else if (!discovered){
-        flagged = flagged;
+        flagged = false;
         this->ChangeTextureRect(HIDDEN);
         return 0;
     }
     return -2;
+}
+int Cell::reset(sf::Vector2f position, int celltype){
+    sprite.setPosition(position);
+    type = celltype;
+    sprite.setTextureRect(getRectFromCellType(celltype));
+    return 0;
+}
+int Cell::highlight(){
+    sprite.setColor(sf::Color(255, 255, 255, 192));
+    return 0;
+}
+int Cell::unhighlight(){
+    // ChangeTextureRect(type);
+    sprite.setColor(sf::Color(255, 255, 255, 255));
+    return 0;
 }

@@ -1,0 +1,23 @@
+wykrycie wygrania
+pierwsze odkrycie nie może być na minie
+endageme komunikat win/over
+dodać audio
+wyświetlanie czasu i pozostałych min na górze
+aktualizacja pozycji planszy aby była na środku
+fullscreen mode
+efekt fizyczny wybuchu box2d po wyborze miny
+
+
+
+Plan slajdów
+    1. czym jest cmake
+    2. omówienie przykładowego cmake’a
+    3. Czym jest SFML + omówienie templatki sfml
+    4. obsługa czasu
+    5. dodanie framelimit, synchronizacji pionowej, fullscreen, windowed types
+    6. wyświetlanie spriteów/textór i tworzenie obiektów
+    7. obsługa eventów, myszka klawisze
+    8. dodanie audio
+    9. final game
+    10. (dodatek) obsługa sieci i kontrolera
+    11. dodanie fizyki box2d

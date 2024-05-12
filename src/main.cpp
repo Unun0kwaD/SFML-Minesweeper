@@ -12,7 +12,7 @@ int main()
     while (window.isOpen())
     {
         sf::Time elapsed = clock.getElapsedTime();
-        // std::cout << elapsed.asSeconds() << std::endl;
+        std::cout << elapsed.asSeconds() << std::endl;
         sf::Event event;
         while (window.pollEvent(event))
         {
@@ -30,11 +30,14 @@ int main()
                 {
                     int x = event.mouseButton.x / CELL_SIZE;
                     int y = event.mouseButton.y / CELL_SIZE;
-                    std::cout << x << " " << y << std::endl;
                     minefield.flag(x, y);
                 }
             }
         }
+        sf::Vector2i localPosition = sf::Mouse::getPosition(window);
+        // std::cout<<localPosition.x<<" "<<localPosition.y<<std::endl;
+        minefield.highlight(localPosition.x/ CELL_SIZE,localPosition.y/ CELL_SIZE);
+
         window.clear(sf::Color::White);
         minefield.Draw(window);
         window.display();

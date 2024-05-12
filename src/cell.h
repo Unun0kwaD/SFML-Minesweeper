@@ -17,7 +17,10 @@ public:
     void Draw(sf::RenderWindow& window);
     void ChangeTextureRect(int img);
     int discover();
+    int highlight();
+    int unhighlight();
     int flag();
+    int reset(sf::Vector2f position, int celltype);
     int type;
     int adjacent_mines=0;
 };

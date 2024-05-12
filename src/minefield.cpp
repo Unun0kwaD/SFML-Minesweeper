@@ -57,7 +57,7 @@ void Minefield::Draw(sf::RenderWindow &window)
 
 int Minefield::discover(int x, int y)
 {
-    if (!cells[x * CELLS_Y + y].discovered)
+    if (!cells[x * CELLS_Y + y].discovered && !cells[x * CELLS_Y + y].flagged)
     {
         int result = cells[x * CELLS_Y + y].discover();
         if (result == 0)
@@ -77,6 +77,13 @@ int Minefield::discover(int x, int y)
                 }
             }
         }
+        else
+        {
+            // TODO:
+            //  count adjacent flags and bombs
+            //  if num of adjecent flags == num of adjecent bombs
+            //        discover all the adjecent fields
+        }
         return result;
     }
     return -2;
@@ -84,12 +91,21 @@ int Minefield::discover(int x, int y)
 
 int Minefield::flag(int x, int y)
 {
-    if (!cells[x * CELLS_Y + y].flagged){
     int result = cells[x * CELLS_Y + y].flag();
     if (result == -1)
         ;
-    // gameover();
+    // TODO: gameover();
     return result;
+}
+int Minefield::highlight(int x, int y)
+{
+    if ((x != highlight_x || y != highlight_y) &&
+        x >= 0 && x < CELLS_X && y >= 0 && y < CELLS_Y)
+    {
+        cells[highlight_x * CELLS_Y + highlight_y].unhighlight();
+        cells[x * CELLS_Y + y].highlight();
+        highlight_x = x;
+        highlight_y = y;
     }
-    return -2;
+    return 0;
 }
