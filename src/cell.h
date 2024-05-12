@@ -8,12 +8,15 @@ class Cell
 {
 private:
     sf::Sprite sprite;
-    int type;
-    sf::IntRect getRectFromCellType();
+    sf::IntRect getRectFromCellType(int celltype);
 public:
     bool mine=false;
     Cell(sf::Texture& texture,sf::Vector2f position,int type);
     void Draw(sf::RenderWindow& window);
+    void ChangeTextureRect(int img);
     int discover();
+    int flag();
+    int type;
+    int adjacent_mines=0;
 };
 #endif

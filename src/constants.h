@@ -1,8 +1,8 @@
 #pragma once
 
-#define SCALE 2.0f
-#define CELLS_X 20
-#define CELLS_Y 20
+#define SCALE 3.0f
+#define CELLS_X 10
+#define CELLS_Y 10
 #define TEXTURE_SIZE 16
 #define CELL_SIZE SCALE * TEXTURE_SIZE
 #define WINDOW_WIDTH CELL_SIZE * CELLS_X
@@ -11,5 +11,5 @@
 
 #define EMPTY 8
 #define HIDDEN 9
-#define BOMB 10
+#define MINE 10
 #define FLAG 11
